@@ -1,0 +1,8 @@
+int uniqueElement(vector<int> arr, int n)
+{
+	int xorr=0;
+    for(auto a : arr)
+        xorr^=a;
+    return xorr;
+    
+}
