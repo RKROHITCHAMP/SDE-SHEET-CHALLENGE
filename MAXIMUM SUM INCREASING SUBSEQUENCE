@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+int maxIncreasingDumbbellsSum(vector<int> &arr, int n)
+{
+	 if(n==1) return arr[0];
+    vector<int> dp(n);
+    int ans =INT_MIN;
+    for(int i=0;i<n;i++)
+    {
+        int maxi=0;
+        for(int j=0;j<i;j++)
+        { if(dp[j]>maxi)
+            { if(arr[j]<arr[i])
+            {
+                if(maxi==0)
+                maxi=dp[j];
+                else if(maxi<dp[j])
+                    maxi=dp[j];
+            }
+            }
+        }
+        if(maxi==0)
+            dp[i]=arr[i];
+         else
+             dp[i]=arr[i]+maxi;
+         if(dp[i]>ans)
+            ans=dp[i];
+        
+    }
+        return ans;
+}
