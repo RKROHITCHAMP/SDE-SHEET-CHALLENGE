@@ -1,0 +1,20 @@
+#include <bits/stdc++.h> 
+long getTrappedWater(long *arr, int n){
+   long *left = new long[n];
+   long *right = new long[n];
+    long leftmax=-1,rightmax=-1;
+    for(int i=0;i<n;i++)
+    {
+        leftmax=max(leftmax,arr[i]);
+        left[i]=leftmax;
+    }
+    for(int i=n-1;i>=0;i--)
+    {
+        rightmax=max(rightmax,arr[i]);
+        right[i]=rightmax;
+    }
+    long ans=0;
+    for(int i=0;i<n;i++)
+        ans+=min(left[i],right[i])-arr[i];
+    return ans;
+}
