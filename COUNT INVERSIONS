@@ -1,0 +1,45 @@
+#include <bits/stdc++.h> 
+long long  _merge(long long arr[],int left,int mid,int right)
+{
+    long long i,j,k;
+    long long inv_count=0;
+    i=left;
+    j=mid;
+    k=0;
+    int temp[right-left+1];
+    while(i<mid || j<=right){
+        if(i<mid && j<=right){
+            if(arr[i] > arr[j]){ 
+                inv_count+=(mid-i); temp[k++] = arr[j++]; 
+            }
+            else temp[k++] = arr[i++];   
+        }
+        else if(i<mid){ 
+            temp[k++] = arr[i++];   
+        }
+        else{ 
+            temp[k++] = arr[j++]; 
+        }
+    }
+    
+    j = 0;
+    for(int i=left;i<=right;i++) arr[i] = temp[j++];
+    
+    return inv_count;
+}
+long long  _mergesort(long long arr[],int left,int right)
+{
+    long long inv_count=0;
+    if(right>left)
+    {
+        int mid=left+(right-left)/2;
+        inv_count =_mergesort(arr,left,mid);
+        inv_count+=_mergesort(arr,mid+1,right);
+        inv_count+=_merge(arr,left,mid+1,right);
+    }
+    return inv_count;
+}
+long long getInversions(long long *arr, int n){
+    return _mergesort(arr,0,n-1);
+    
+}
